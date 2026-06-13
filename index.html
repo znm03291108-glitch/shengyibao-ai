@@ -4,12 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>生意宝 AI V1.1 - 小商家自动获客成交系统</title>
+  <title>生意宝 AI V1.2 - 会员码验证版</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -26,7 +24,7 @@
 
     .hero {
       color: #fff;
-      padding: 26px 8px 18px;
+      padding: 28px 8px 18px;
       text-align: center;
     }
 
@@ -34,7 +32,6 @@
       margin: 0;
       font-size: 34px;
       font-weight: 900;
-      letter-spacing: 1px;
     }
 
     .hero .sub-title {
@@ -43,7 +40,7 @@
       color: #cbd5e1;
     }
 
-    .hero .tag {
+    .tag {
       display: inline-block;
       margin-top: 12px;
       padding: 7px 15px;
@@ -62,9 +59,7 @@
       font-size: 16px;
     }
 
-    .hero strong {
-      color: #facc15;
-    }
+    .hero strong { color: #facc15; }
 
     .industry-tags {
       display: flex;
@@ -88,10 +83,6 @@
       justify-content: center;
       gap: 10px;
       flex-wrap: wrap;
-    }
-
-    .top-cta button {
-      min-width: 150px;
     }
 
     .card {
@@ -124,6 +115,11 @@
       white-space: nowrap;
     }
 
+    .vip-badge {
+      color: #027a48;
+      background: #ecfdf3;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -131,13 +127,8 @@
     }
 
     @media (max-width: 720px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 28px;
-      }
+      .grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
     }
 
     label {
@@ -170,13 +161,6 @@
       box-shadow: 0 0 0 3px rgba(21,112,239,0.12);
     }
 
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
     button {
       border: none;
       border-radius: 14px;
@@ -187,8 +171,13 @@
       transition: 0.15s;
     }
 
-    button:active {
-      transform: scale(0.98);
+    button:active { transform: scale(0.98); }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
     }
 
     .btn-primary {
@@ -237,9 +226,7 @@
       font-weight: 700;
     }
 
-    .chip:hover {
-      background: #e4e7ec;
-    }
+    .chip:hover { background: #e4e7ec; }
 
     .notice {
       font-size: 13px;
@@ -259,8 +246,12 @@
       margin-bottom: 14px;
     }
 
-    .usage-box strong {
-      color: #d92d20;
+    .usage-box strong { color: #d92d20; }
+
+    .vip-box {
+      background: #ecfdf3;
+      border: 1px solid #abefc6;
+      color: #027a48;
     }
 
     .result-empty {
@@ -328,8 +319,20 @@
       line-height: 1.8;
     }
 
-    .pay-banner strong {
-      color: #d92d20;
+    .pay-banner strong { color: #d92d20; }
+
+    .member-login {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .member-login-title {
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: #0f172a;
     }
 
     .price {
@@ -340,9 +343,7 @@
     }
 
     @media (max-width: 720px) {
-      .price {
-        grid-template-columns: 1fr;
-      }
+      .price { grid-template-columns: 1fr; }
     }
 
     .price-card {
@@ -451,11 +452,716 @@
       margin: 0 0 12px;
     }
 
-    .modal .modal-actions {
+    .modal-actions {
       display: flex;
       gap: 10px;
       margin-top: 14px;
     }
 
-    .modal .modal-actions button {
-      flex:
+    .modal-actions button { flex: 1; }
+
+    .hidden { display: none; }
+
+    .form-tip {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #667085;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <div class="hero">
+      <h1>生意宝 AI</h1>
+      <div class="sub-title">小商家自动获客成交系统</div>
+      <div class="tag">V1.2 会员码验证版</div>
+
+      <p>
+        小店老板不会发广告？不会写朋友圈？不会回复客户？
+        <br>
+        输入一句话，AI 自动生成 <strong>朋友圈广告、短视频脚本、客户回复话术、成交话术</strong>。
+      </p>
+
+      <div class="industry-tags">
+        <span>修车轮胎</span>
+        <span>餐饮外卖</span>
+        <span>家政维修</span>
+        <span>美容美甲</span>
+        <span>培训招生</span>
+        <span>工程服务</span>
+      </div>
+
+      <div class="top-cta">
+        <button class="btn-primary" onclick="scrollToForm()">免费生成</button>
+        <button class="btn-orange" onclick="scrollToMember()">输入会员码</button>
+      </div>
+    </div>
+
+    <div class="card" id="memberCard">
+      <h2 class="section-title">
+        会员码验证
+        <span id="memberBadge" class="small-badge">未开通</span>
+      </h2>
+
+      <div id="memberLoginBox" class="member-login">
+        <div class="member-login-title">已有会员码？在这里输入开通</div>
+
+        <div class="grid">
+          <div>
+            <label>会员码</label>
+            <input id="memberCode" placeholder="请输入会员码，例如 SYB2026">
+          </div>
+
+          <div>
+            <label>店铺名称</label>
+            <input id="shopName" placeholder="例如：老王轮胎店">
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-green" onclick="verifyMemberCode()">验证会员码</button>
+          <button class="btn-light" onclick="logoutMember()">退出会员</button>
+        </div>
+
+        <p class="notice">
+          测试会员码：A001、A002、A003。正式推广时建议改成你自己发给客户的会员码。
+        </p>
+      </div>
+
+      <div id="memberStatusBox" class="usage-box">
+        当前身份：普通用户。每天可免费生成 <strong>3</strong> 次。
+      </div>
+    </div>
+
+    <div class="card" id="formCard">
+      <h2 class="section-title">
+        填写你的生意信息
+        <span class="small-badge">10 秒生成</span>
+      </h2>
+
+      <div id="usageBox" class="usage-box">
+        当前模式：免费体验版。今天剩余生成次数：<strong id="leftCount">3</strong> 次。
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>行业</label>
+          <select id="industry">
+            <option value="轮胎店">轮胎店</option>
+            <option value="修车店">修车店</option>
+            <option value="洗车店">洗车店</option>
+            <option value="空调维修">空调维修</option>
+            <option value="家政保洁">家政保洁</option>
+            <option value="餐饮小店">餐饮小店</option>
+            <option value="美甲美容">美甲美容</option>
+            <option value="理发店">理发店</option>
+            <option value="培训班">培训班</option>
+            <option value="工程机械维修">工程机械维修</option>
+            <option value="其他行业">其他行业</option>
+          </select>
+        </div>
+
+        <div>
+          <label>城市 / 区域</label>
+          <input id="city" placeholder="例如：徐州、广州、金迪亚、本地附近" value="本地附近">
+        </div>
+
+        <div>
+          <label>产品 / 服务</label>
+          <input id="service" placeholder="例如：换轮胎、空调清洗、套餐饭、招生体验课">
+        </div>
+
+        <div>
+          <label>价格 / 优惠</label>
+          <input id="price" placeholder="例如：299元起、买一送一、免费检测">
+        </div>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <label>活动内容</label>
+        <textarea id="activity" placeholder="例如：换轮胎送四轮定位，进店免费检查胎压，老客户转介绍有优惠"></textarea>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <label>目标客户</label>
+        <input id="customer" placeholder="例如：私家车车主、宝妈、上班族、工地老板、附近居民" value="附近有需求的客户">
+      </div>
+
+      <div class="form-tip">
+        建议填写越具体越好，例如：行业、城市、价格、优惠、目标客户，这样生成内容更像真实营销方案。
+      </div>
+
+      <div class="quick-list">
+        <span class="chip" onclick="fillDemo('轮胎店')">轮胎店示例</span>
+        <span class="chip" onclick="fillDemo('空调维修')">空调维修示例</span>
+        <span class="chip" onclick="fillDemo('餐饮小店')">餐饮示例</span>
+        <span class="chip" onclick="fillDemo('培训班')">培训班示例</span>
+        <span class="chip" onclick="fillDemo('美甲美容')">美容美甲示例</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="generateCopy()">立即生成获客方案</button>
+        <button class="btn-light" onclick="clearForm()">清空</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">
+        生成结果
+        <span class="small-badge">卡片式复制</span>
+      </h2>
+
+      <div id="emptyResult" class="result-empty">
+        请先填写上面的信息，然后点击“立即生成获客方案”。
+        <br>
+        生成后会自动拆分为朋友圈广告、短视频脚本、客户回复、成交话术等模块。
+      </div>
+
+      <div id="resultArea" class="result-grid hidden"></div>
+
+      <div id="payAfterResult" class="pay-banner hidden">
+        <strong>想每天生成更多获客文案？</strong>
+        <br>
+        普通用户每天 3 次，会员每天 30 次。开通 9.9 元/月会员，适合小店老板长期使用。
+        <div class="btn-row">
+          <button class="btn-orange" onclick="scrollToPay()">立即开通会员</button>
+          <button class="btn-green" onclick="copyAllResult()">复制完整方案</button>
+        </div>
+      </div>
+
+      <p class="notice">
+        提醒：生成内容仅供营销参考，请根据实际价格、服务能力和当地政策进行修改。不要虚假宣传，不要夸大承诺。
+      </p>
+    </div>
+
+    <div class="card" id="pay">
+      <h2 class="section-title">
+        会员开通
+        <span class="small-badge">扫码付款</span>
+      </h2>
+
+      <div class="pay-banner">
+        <strong>开通流程：</strong>
+        <br>
+        1. 扫码付款
+        <br>
+        2. 联系管理员发送付款截图
+        <br>
+        3. 管理员发送会员码
+        <br>
+        4. 回到页面输入会员码，自动解锁会员次数
+      </div>
+
+      <div class="price">
+        <div class="price-card">
+          <h3>体验版</h3>
+          <strong>0 元</strong>
+          <p>每天生成 3 次<br>适合免费试用</p>
+        </div>
+
+        <div class="price-card">
+          <h3>普通会员</h3>
+          <strong>9.9 元/月</strong>
+          <p>每天生成 30 次<br>适合个人小店</p>
+        </div>
+
+        <div class="price-card">
+          <h3>店铺版</h3>
+          <strong>99 元/月</strong>
+          <p>多人使用<br>适合门店团队</p>
+        </div>
+      </div>
+
+      <div class="qr-box">
+        <div class="qr-placeholder">
+          <img id="payImg" src="pay.png" onload="this.style.display='block'; document.getElementById('qrText').style.display='none';">
+          <span id="qrText">付款二维码区域<br>上传 pay.png 后自动显示</span>
+        </div>
+
+        <strong>扫码付款后联系客服开通会员</strong>
+        <div class="notice">
+          把你的收款二维码图片命名为 <strong>pay.png</strong>，和 index.html 放在同一个仓库根目录，页面会自动显示。
+        </div>
+      </div>
+
+      <div class="contact-box">
+        <strong>联系客服开通：</strong>
+        <br>
+        微信 / WhatsApp / Telegram：请在这里填写你的联系方式
+        <br><br>
+        付款后发送：
+        <br>
+        1. 店铺名称
+        <br>
+        2. 手机号
+        <br>
+        3. 开通套餐
+        <br>
+        4. 付款截图
+      </div>
+    </div>
+
+    <div class="footer">
+      生意宝 AI V1.2 · 会员码验证版
+      <br>
+      普通用户每天 3 次，会员每天 30 次。
+    </div>
+  </div>
+
+  <div id="memberModal" class="modal-mask">
+    <div class="modal">
+      <h2>免费次数已用完</h2>
+      <p>
+        普通用户每天可免费生成 3 次。开通会员后，每天可生成 30 次获客文案、短视频脚本、客户回复话术和成交方案。
+      </p>
+
+      <div class="pay-banner">
+        <strong>普通会员：9.9 元/月</strong>
+        <br>
+        付款后联系客服领取会员码，输入会员码即可解锁。
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-orange" onclick="goPay()">去开通</button>
+        <button class="btn-light" onclick="closeMemberModal()">稍后再说</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const FREE_LIMIT = 3;
+    const VIP_LIMIT = 30;
+
+    // 这里修改你的会员码
+    const VALID_MEMBER_CODES = [
+      "SYB2026",
+      "VIP999",
+      "BOSS888",
+      "SHOP666",
+      "ADMIN520"
+    ];
+
+    let allResultText = "";
+
+    function todayKey() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return "shengyibao_usage_" + y + "-" + m + "-" + day;
+    }
+
+    function memberKey() {
+      return "shengyibao_member_status";
+    }
+
+    function shopKey() {
+      return "shengyibao_shop_name";
+    }
+
+    function getUsedCount() {
+      return Number(localStorage.getItem(todayKey()) || "0");
+    }
+
+    function setUsedCount(count) {
+      localStorage.setItem(todayKey(), String(count));
+    }
+
+    function isMember() {
+      return localStorage.getItem(memberKey()) === "VIP";
+    }
+
+    function getLimit() {
+      return isMember() ? VIP_LIMIT : FREE_LIMIT;
+    }
+
+    function updateMemberUI() {
+      const memberBadge = document.getElementById("memberBadge");
+      const memberStatusBox = document.getElementById("memberStatusBox");
+      const usageBox = document.getElementById("usageBox");
+
+      if (isMember()) {
+        const shop = localStorage.getItem(shopKey()) || "会员用户";
+
+        memberBadge.innerText = "已开通会员";
+        memberBadge.classList.add("vip-badge");
+
+        memberStatusBox.className = "usage-box vip-box";
+        memberStatusBox.innerHTML = `当前身份：会员用户。店铺：<strong>${shop}</strong>。每天可生成 <strong>${VIP_LIMIT}</strong> 次。`;
+
+        usageBox.className = "usage-box vip-box";
+        usageBox.innerHTML = `当前模式：会员版。今天剩余生成次数：<strong id="leftCount">${Math.max(VIP_LIMIT - getUsedCount(), 0)}</strong> 次。`;
+      } else {
+        memberBadge.innerText = "未开通";
+        memberBadge.classList.remove("vip-badge");
+
+        memberStatusBox.className = "usage-box";
+        memberStatusBox.innerHTML = `当前身份：普通用户。每天可免费生成 <strong>${FREE_LIMIT}</strong> 次。`;
+
+        usageBox.className = "usage-box";
+        usageBox.innerHTML = `当前模式：免费体验版。今天剩余生成次数：<strong id="leftCount">${Math.max(FREE_LIMIT - getUsedCount(), 0)}</strong> 次。`;
+      }
+    }
+
+    function updateLeftCount() {
+      const el = document.getElementById("leftCount");
+      if (!el) return;
+
+      const left = Math.max(getLimit() - getUsedCount(), 0);
+      el.innerText = left;
+    }
+
+    function verifyMemberCode() {
+      const code = document.getElementById("memberCode").value.trim().toUpperCase();
+      const shop = document.getElementById("shopName").value.trim() || "会员店铺";
+
+      if (!code) {
+        alert("请输入会员码。");
+        return;
+      }
+
+      if (VALID_MEMBER_CODES.includes(code)) {
+        localStorage.setItem(memberKey(), "VIP");
+        localStorage.setItem(shopKey(), shop);
+        alert("会员码验证成功，已开通会员版。");
+        updateMemberUI();
+        updateLeftCount();
+      } else {
+        alert("会员码不正确，请检查后重新输入，或联系管理员。");
+      }
+    }
+
+    function logoutMember() {
+      if (!confirm("确定要退出会员状态吗？")) return;
+
+      localStorage.removeItem(memberKey());
+      localStorage.removeItem(shopKey());
+      alert("已退出会员状态。");
+      updateMemberUI();
+      updateLeftCount();
+    }
+
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function scrollToForm() {
+      document.getElementById("formCard").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function scrollToMember() {
+      document.getElementById("memberCard").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function scrollToPay() {
+      document.getElementById("pay").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function openMemberModal() {
+      document.getElementById("memberModal").style.display = "flex";
+    }
+
+    function closeMemberModal() {
+      document.getElementById("memberModal").style.display = "none";
+    }
+
+    function goPay() {
+      closeMemberModal();
+      scrollToPay();
+    }
+
+    function generateCopy() {
+      const used = getUsedCount();
+      const limit = getLimit();
+
+      if (used >= limit) {
+        openMemberModal();
+        return;
+      }
+
+      const industry = getValue("industry");
+      const city = getValue("city") || "本地附近";
+      const service = getValue("service") || "本店服务";
+      const price = getValue("price") || "优惠活动进行中";
+      const activity = getValue("activity") || "现在到店咨询可享受优惠服务";
+      const customer = getValue("customer") || "附近有需求的客户";
+
+      const parts = buildResult(industry, city, service, price, activity, customer);
+
+      renderResult(parts);
+
+      allResultText = parts.map(item => {
+        return "【" + item.title + "】\n\n" + item.content;
+      }).join("\n\n━━━━━━━━━━━━━━\n\n");
+
+      setUsedCount(used + 1);
+      updateMemberUI();
+      updateLeftCount();
+
+      document.getElementById("emptyResult").classList.add("hidden");
+      document.getElementById("resultArea").classList.remove("hidden");
+      document.getElementById("payAfterResult").classList.remove("hidden");
+
+      document.getElementById("resultArea").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function buildResult(industry, city, service, price, activity, customer) {
+      return [
+        {
+          title: "朋友圈广告文案",
+          content:
+`${city}的朋友注意了！
+
+最近有需要【${service}】的客户，可以了解一下我们现在的活动。
+
+本店正在推出：
+${activity}
+
+价格/优惠：
+${price}
+
+适合人群：
+${customer}
+
+很多客户平时觉得不着急，真正需要的时候才发现已经耽误了。现在提前安排，不仅省心，也更划算。
+
+有需要的朋友可以直接私信我：
+“${service}”
+
+我看到后会第一时间回复你，帮你安排合适的方案。`
+        },
+        {
+          title: "短视频口播脚本",
+          content:
+`你是不是也遇到过这种情况？
+
+想找靠谱的【${service}】，但是不知道去哪家，也怕价格不透明、服务不到位。
+
+我们是${city}本地服务商，现在正在做活动：
+
+${activity}
+
+价格方面：
+${price}
+
+如果你正好有这方面需求，可以先来咨询，不强制消费，先帮你看看适不适合。
+
+${city}附近的朋友，可以直接留言：
+“${service}”
+
+我来帮你安排。`
+        },
+        {
+          title: "微信客户回复话术",
+          content:
+`客户问：多少钱？
+
+回复：
+您好，我们现在【${service}】活动是：${price}。
+具体还要看您的实际情况，我可以先帮您简单了解一下，然后给您推荐合适方案。
+
+您方便把需求、位置或者照片发我看一下吗？
+
+
+客户问：能优惠吗？
+
+回复：
+可以的，现在正好有活动：${activity}。
+如果您今天确定，我可以帮您按活动价安排，尽量给您一个合适的优惠。
+
+
+客户问：你们在哪里？
+
+回复：
+我们在${city}，主要服务${city}及附近客户。
+您可以发一下您的位置，我帮您看一下距离和安排时间。
+
+
+客户问：靠谱吗？
+
+回复：
+您放心，我们一直做本地客户，主要靠老客户介绍和口碑。
+您可以先咨询了解，不满意不强制消费，确认合适再安排。`
+        },
+        {
+          title: "成交引导话术",
+          content:
+`您这个需求其实越早处理越好。
+
+现在刚好有活动：
+${activity}
+
+价格也比较合适：
+${price}
+
+如果您今天安排，我可以优先给您预留名额/时间，避免后面排队或者恢复原价。
+
+您看我是帮您安排今天，还是明天更方便？`
+        },
+        {
+          title: "老客户召回文案",
+          content:
+`老客户您好，我们最近针对【${service}】推出了新的优惠活动。
+
+活动内容：
+${activity}
+
+如果您自己需要，或者身边朋友有需要，都可以联系我。
+
+老客户介绍朋友过来，也可以给您额外优惠/礼品。
+
+有需要直接回复：
+“安排”`
+        },
+        {
+          title: "今日推广计划",
+          content:
+`上午：
+发布朋友圈广告，重点突出“${price}”和“${activity}”。
+
+中午：
+发一条短视频，内容围绕客户常见问题：
+为什么要选择靠谱的${service}？
+
+下午：
+主动私聊老客户，发送老客户召回文案。
+
+晚上：
+再发一次朋友圈，强调限时活动和今日预约名额。
+
+建议今天重点动作：
+1. 发 2 条朋友圈
+2. 发 1 条短视频
+3. 私聊 20 个老客户
+4. 把客户问题整理下来，明天继续优化文案`
+        },
+        {
+          title: "合规风险提醒",
+          content:
+`请注意：
+1. 不要虚假宣传
+2. 不要承诺做不到的效果
+3. 价格要和实际一致
+4. 服务范围要说清楚
+5. 客户付款前要确认细节
+6. 涉及医疗、金融、法律、招聘等行业时，要增加免责声明`
+        }
+      ];
+    }
+
+    function renderResult(parts) {
+      const box = document.getElementById("resultArea");
+      box.innerHTML = "";
+
+      parts.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "result-card";
+
+        const head = document.createElement("div");
+        head.className = "result-head";
+
+        const title = document.createElement("h3");
+        title.innerText = item.title;
+
+        const btn = document.createElement("button");
+        btn.className = "copy-small";
+        btn.innerText = "复制";
+        btn.onclick = function() {
+          copyText("【" + item.title + "】\n\n" + item.content);
+        };
+
+        const body = document.createElement("div");
+        body.className = "result-body";
+        body.innerText = item.content;
+
+        head.appendChild(title);
+        head.appendChild(btn);
+        card.appendChild(head);
+        card.appendChild(body);
+
+        box.appendChild(card);
+      });
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("已复制，可以粘贴到微信、朋友圈、抖音文案里使用。");
+      }).catch(() => {
+        alert("复制失败，请长按文本手动复制。");
+      });
+    }
+
+    function copyAllResult() {
+      if (!allResultText) {
+        alert("请先生成内容。");
+        return;
+      }
+
+      copyText(allResultText);
+    }
+
+    function clearForm() {
+      document.getElementById("service").value = "";
+      document.getElementById("price").value = "";
+      document.getElementById("activity").value = "";
+      document.getElementById("customer").value = "附近有需求的客户";
+
+      document.getElementById("emptyResult").classList.remove("hidden");
+      document.getElementById("resultArea").classList.add("hidden");
+      document.getElementById("payAfterResult").classList.add("hidden");
+      document.getElementById("resultArea").innerHTML = "";
+      allResultText = "";
+    }
+
+    function fillDemo(type) {
+      document.getElementById("industry").value = type;
+
+      if (type === "轮胎店") {
+        document.getElementById("city").value = "徐州";
+        document.getElementById("service").value = "换轮胎、补胎、四轮定位";
+        document.getElementById("price").value = "299元起，进店免费检查胎压";
+        document.getElementById("activity").value = "换轮胎送四轮定位检查，老客户介绍朋友到店有优惠";
+        document.getElementById("customer").value = "私家车车主、经常跑高速和工地的车主";
+      }
+
+      if (type === "空调维修") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "空调清洗、维修、加氟";
+        document.getElementById("price").value = "上门检测优惠价，清洗特价";
+        document.getElementById("activity").value = "预约空调清洗享优惠，上门快，价格透明";
+        document.getElementById("customer").value = "家庭用户、出租房、商铺、办公室";
+      }
+
+      if (type === "餐饮小店") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "午餐套餐、晚餐套餐、外卖";
+        document.getElementById("price").value = "今日套餐特价，满减优惠";
+        document.getElementById("activity").value = "今日到店消费送小菜，外卖满额立减";
+        document.getElementById("customer").value = "附近上班族、学生、居民";
+      }
+
+      if (type === "培训班") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "学生辅导、英语课程、寒暑假班";
+        document.getElementById("price").value = "免费试听一节课";
+        document.getElementById("activity").value = "新生报名可免费试听，老生介绍有礼";
+        document.getElementById("customer").value = "学生家长、小学生、初中生";
+      }
+
+      if (type === "美甲美容") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "美甲、美睫、皮肤护理";
+        document.getElementById("price").value = "新客体验价，老客户充值优惠";
+        document.getElementById("activity").value = "新客到店享体验价，闺蜜同行更优惠";
+        document.getElementById("customer").value = "年轻女性、上班族、附近居民";
+      }
+    }
+
+    updateMemberUI();
+    updateLeftCount();
+  </script>
+</body>
+</html>
