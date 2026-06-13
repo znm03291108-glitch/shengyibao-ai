@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>生意宝 AI - 小商家获客文案生成器</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #101828, #1d2939);
+      color: #101828;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .hero {
+      color: #fff;
+      padding: 28px 8px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .hero .tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      font-size: 14px;
+    }
+
+    .hero p {
+      margin: 16px auto 0;
+      max-width: 700px;
+      color: #d0d5dd;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 20px;
+      font-weight: 800;
+      color: #101828;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #344054;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid #d0d5dd;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      outline: none;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #1570ef;
+      box-shadow: 0 0 0 3px rgba(21,112,239,0.12);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #1570ef;
+      color: #fff;
+      flex: 1;
+    }
+
+    .btn-copy {
+      background: #12b76a;
+      color: #fff;
+      flex: 1;
+    }
+
+    .btn-pay {
+      background: #f79009;
+      color: #fff;
+      flex: 1;
+    }
+
+    .btn-clear {
+      background: #f2f4f7;
+      color: #344054;
+    }
+
+    .quick-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f2f4f7;
+      color: #344054;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .chip:hover {
+      background: #e4e7ec;
+    }
+
+    .result {
+      white-space: pre-wrap;
+      line-height: 1.8;
+      background: #f9fafb;
+      border: 1px solid #eaecf0;
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 220px;
+      font-size: 15px;
+      color: #101828;
+    }
+
+    .member-box {
+      background: linear-gradient(135deg, #fff7ed, #fffbeb);
+      border: 1px solid #fedf89;
+      border-radius: 18px;
+      padding: 16px;
+      line-height: 1.8;
+    }
+
+    .price {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .price {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .price-card {
+      border: 1px solid #eaecf0;
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .price-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .price-card strong {
+      font-size: 24px;
+      color: #d92d20;
+    }
+
+    .footer {
+      color: #d0d5dd;
+      text-align: center;
+      font-size: 13px;
+      padding: 20px 0 32px;
+      line-height: 1.7;
+    }
+
+    .notice {
+      font-size: 13px;
+      color: #667085;
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+
+    .success {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #ecfdf3;
+      color: #027a48;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .top-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 12px;
+      color: #fff;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .stat span {
+      font-size: 12px;
+      color: #d0d5dd;
+    }
+
+    @media (max-width: 720px) {
+      .top-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <div class="hero">
+      <h1>生意宝 AI</h1>
+      <div class="tag">小商家自动获客成交系统 V1.0</div>
+      <p>
+        不会发朋友圈？不会写短视频文案？不会回复客户？
+        输入行业、活动、价格和城市，系统自动生成广告文案、口播脚本、客户回复话术和成交方案。
+      </p>
+
+      <div class="top-stats">
+        <div class="stat">
+          <strong>10秒</strong>
+          <span>生成今日获客文案</span>
+        </div>
+        <div class="stat">
+          <strong>5类</strong>
+          <span>广告 + 回复 + 成交话术</span>
+        </div>
+        <div class="stat">
+          <strong>9.9元</strong>
+          <span>低价会员入口</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">填写你的生意信息</h2>
+
+      <div class="grid">
+        <div>
+          <label>行业</label>
+          <select id="industry">
+            <option value="轮胎店">轮胎店</option>
+            <option value="修车店">修车店</option>
+            <option value="洗车店">洗车店</option>
+            <option value="空调维修">空调维修</option>
+            <option value="家政保洁">家政保洁</option>
+            <option value="餐饮小店">餐饮小店</option>
+            <option value="美甲美容">美甲美容</option>
+            <option value="理发店">理发店</option>
+            <option value="培训班">培训班</option>
+            <option value="工程机械维修">工程机械维修</option>
+            <option value="其他行业">其他行业</option>
+          </select>
+        </div>
+
+        <div>
+          <label>城市 / 区域</label>
+          <input id="city" placeholder="例如：徐州、广州、金迪亚、本地附近" value="本地附近">
+        </div>
+
+        <div>
+          <label>产品 / 服务</label>
+          <input id="service" placeholder="例如：换轮胎、空调清洗、套餐饭、招生体验课">
+        </div>
+
+        <div>
+          <label>价格 / 优惠</label>
+          <input id="price" placeholder="例如：299元起、买一送一、免费检测">
+        </div>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <label>活动内容</label>
+        <textarea id="activity" placeholder="例如：换轮胎送四轮定位，进店免费检查胎压，老客户转介绍有优惠"></textarea>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <label>目标客户</label>
+        <input id="customer" placeholder="例如：私家车车主、宝妈、上班族、工地老板、附近居民" value="附近有需求的客户">
+      </div>
+
+      <div class="quick-list">
+        <span class="chip" onclick="fillDemo('轮胎店')">轮胎店示例</span>
+        <span class="chip" onclick="fillDemo('空调维修')">空调维修示例</span>
+        <span class="chip" onclick="fillDemo('餐饮小店')">餐饮示例</span>
+        <span class="chip" onclick="fillDemo('培训班')">培训班示例</span>
+        <span class="chip" onclick="fillDemo('美甲美容')">美容美甲示例</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="generateCopy()">立即生成获客方案</button>
+        <button class="btn-clear" onclick="clearForm()">清空</button>
+      </div>
+
+      <div id="success" class="success">已生成，可以复制使用。</div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">生成结果</h2>
+      <div id="result" class="result">请先填写上面的信息，然后点击“立即生成获客方案”。</div>
+
+      <div class="btn-row">
+        <button class="btn-copy" onclick="copyResult()">复制结果</button>
+        <button class="btn-pay" onclick="scrollToPay()">开通会员</button>
+      </div>
+
+      <p class="notice">
+        提醒：生成内容仅供营销参考，请根据实际价格、服务能力和当地政策进行修改，不要夸大宣传，不要虚假承诺。
+      </p>
+    </div>
+
+    <div class="card" id="pay">
+      <h2 class="section-title">会员开通</h2>
+
+      <div class="member-box">
+        <strong>免费用户：</strong>每天可免费生成 1 次。<br>
+        <strong>会员用户：</strong>可生成更多行业文案、短视频脚本、客户回复话术和成交方案。<br>
+        <strong>适合人群：</strong>小店老板、个体户、维修店、餐饮店、家政服务、培训招生、工程服务人员。
+      </div>
+
+      <div class="price">
+        <div class="price-card">
+          <h3>体验版</h3>
+          <strong>0元</strong>
+          <p>每天生成 1 次<br>适合试用体验</p>
+        </div>
+
+        <div class="price-card">
+          <h3>普通会员</h3>
+          <strong>9.9元/月</strong>
+          <p>每天生成 30 次<br>适合个人小店</p>
+        </div>
+
+        <div class="price-card">
+          <h3>店铺版</h3>
+          <strong>99元/月</strong>
+          <p>多人使用<br>适合门店团队</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <label>付款说明</label>
+        <textarea readonly>开通会员请联系管理员。
+
+微信 / WhatsApp / Telegram：
+请在这里填写你的联系方式
+
+付款后发送：
+1. 店铺名称
+2. 手机号
+3. 开通套餐
+
+管理员审核后开通会员码。</textarea>
+      </div>
+
+      <p class="notice">
+        V1.0 暂时使用人工开通会员。等有用户付款后，再升级自动支付、会员码自动开通和后台订单系统。
+      </p>
+    </div>
+
+    <div class="footer">
+      生意宝 AI V1.0 · 小商家获客文案生成版<br>
+      输入一句话，生成广告、回复、成交话术。
+    </div>
+
+  </div>
+
+  <script>
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function generateCopy() {
+      const industry = getValue("industry");
+      const city = getValue("city") || "本地附近";
+      const service = getValue("service") || "本店服务";
+      const price = getValue("price") || "优惠活动进行中";
+      const activity = getValue("activity") || "现在到店咨询可享受优惠服务";
+      const customer = getValue("customer") || "附近有需求的客户";
+
+      const result = `
+【生意宝 AI 获客方案】
+
+行业：${industry}
+城市/区域：${city}
+产品/服务：${service}
+价格/优惠：${price}
+目标客户：${customer}
+
+━━━━━━━━━━━━━━
+一、朋友圈广告文案
+━━━━━━━━━━━━━━
+
+${city}的朋友注意了！
+
+最近有需要【${service}】的客户，可以了解一下我们现在的活动。
+
+本店正在推出：
+${activity}
+
+价格/优惠：
+${price}
+
+适合人群：
+${customer}
+
+很多客户平时觉得不着急，真正需要的时候才发现已经耽误了。现在提前安排，不仅省心，也更划算。
+
+有需要的朋友可以直接私信我：
+“${service}”
+
+我看到后会第一时间回复你，帮你安排合适的方案。
+
+
+━━━━━━━━━━━━━━
+二、短视频口播脚本
+━━━━━━━━━━━━━━
+
+你是不是也遇到过这种情况？
+
+想找靠谱的【${service}】，但是不知道去哪家，也怕价格不透明、服务不到位。
+
+我们是${city}本地服务商，现在正在做活动：
+
+${activity}
+
+价格方面：
+${price}
+
+如果你正好有这方面需求，可以先来咨询，不强制消费，先帮你看看适不适合。
+
+${city}附近的朋友，可以直接留言：
+“${service}”
+
+我来帮你安排。
+
+
+━━━━━━━━━━━━━━
+三、微信客户回复话术
+━━━━━━━━━━━━━━
+
+客户问：多少钱？
+
+回复：
+您好，我们现在【${service}】活动是：${price}。
+具体还要看您的实际情况，我可以先帮您简单了解一下，然后给您推荐合适方案。
+
+您方便把需求、位置或者照片发我看一下吗？
+
+
+客户问：能优惠吗？
+
+回复：
+可以的，现在正好有活动：${activity}。
+如果您今天确定，我可以帮您按活动价安排，尽量给您一个合适的优惠。
+
+
+客户问：你们在哪里？
+
+回复：
+我们在${city}，主要服务${city}及附近客户。
+您可以发一下您的位置，我帮您看一下距离和安排时间。
+
+
+客户问：靠谱吗？
+
+回复：
+您放心，我们一直做本地客户，主要靠老客户介绍和口碑。
+您可以先咨询了解，不满意不强制消费，确认合适再安排。
+
+
+━━━━━━━━━━━━━━
+四、成交引导话术
+━━━━━━━━━━━━━━
+
+您这个需求其实越早处理越好。
+
+现在刚好有活动：
+${activity}
+
+价格也比较合适：
+${price}
+
+如果您今天安排，我可以优先给您预留名额/时间，避免后面排队或者恢复原价。
+
+您看我是帮您安排今天，还是明天更方便？
+
+
+━━━━━━━━━━━━━━
+五、老客户召回文案
+━━━━━━━━━━━━━━
+
+老客户您好，我们最近针对【${service}】推出了新的优惠活动。
+
+活动内容：
+${activity}
+
+如果您自己需要，或者身边朋友有需要，都可以联系我。
+
+老客户介绍朋友过来，也可以给您额外优惠/礼品。
+
+有需要直接回复：
+“安排”
+
+
+━━━━━━━━━━━━━━
+六、今日推广计划
+━━━━━━━━━━━━━━
+
+上午：
+发布朋友圈广告，重点突出“${price}”和“${activity}”。
+
+中午：
+发一条短视频，内容围绕客户常见问题：
+为什么要选择靠谱的${service}？
+
+下午：
+主动私聊老客户，发送老客户召回文案。
+
+晚上：
+再发一次朋友圈，强调限时活动和今日预约名额。
+
+建议今天重点动作：
+1. 发 2 条朋友圈
+2. 发 1 条短视频
+3. 私聊 20 个老客户
+4. 把客户问题整理下来，明天继续优化文案
+
+
+━━━━━━━━━━━━━━
+七、风险提醒
+━━━━━━━━━━━━━━
+
+请注意：
+1. 不要虚假宣传
+2. 不要承诺做不到的效果
+3. 价格要和实际一致
+4. 服务范围要说清楚
+5. 客户付款前要确认细节
+`;
+
+      document.getElementById("result").innerText = result.trim();
+      document.getElementById("success").style.display = "block";
+    }
+
+    function copyResult() {
+      const text = document.getElementById("result").innerText;
+
+      if (!text || text.includes("请先填写")) {
+        alert("请先生成内容。");
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert("已复制，可以粘贴到微信、朋友圈、抖音文案里使用。");
+      }).catch(() => {
+        alert("复制失败，请长按文本手动复制。");
+      });
+    }
+
+    function scrollToPay() {
+      document.getElementById("pay").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function clearForm() {
+      document.getElementById("service").value = "";
+      document.getElementById("price").value = "";
+      document.getElementById("activity").value = "";
+      document.getElementById("customer").value = "附近有需求的客户";
+      document.getElementById("result").innerText = "请先填写上面的信息，然后点击“立即生成获客方案”。";
+      document.getElementById("success").style.display = "none";
+    }
+
+    function fillDemo(type) {
+      document.getElementById("industry").value = type;
+
+      if (type === "轮胎店") {
+        document.getElementById("city").value = "徐州";
+        document.getElementById("service").value = "换轮胎、补胎、四轮定位";
+        document.getElementById("price").value = "299元起，进店免费检查胎压";
+        document.getElementById("activity").value = "换轮胎送四轮定位检查，老客户介绍朋友到店有优惠";
+        document.getElementById("customer").value = "私家车车主、经常跑高速和工地的车主";
+      }
+
+      if (type === "空调维修") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "空调清洗、维修、加氟";
+        document.getElementById("price").value = "上门检测优惠价，清洗特价";
+        document.getElementById("activity").value = "预约空调清洗享优惠，上门快，价格透明";
+        document.getElementById("customer").value = "家庭用户、出租房、商铺、办公室";
+      }
+
+      if (type === "餐饮小店") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "午餐套餐、晚餐套餐、外卖";
+        document.getElementById("price").value = "今日套餐特价，满减优惠";
+        document.getElementById("activity").value = "今日到店消费送小菜，外卖满额立减";
+        document.getElementById("customer").value = "附近上班族、学生、居民";
+      }
+
+      if (type === "培训班") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "学生辅导、英语课程、寒暑假班";
+        document.getElementById("price").value = "免费试听一节课";
+        document.getElementById("activity").value = "新生报名可免费试听，老生介绍有礼";
+        document.getElementById("customer").value = "学生家长、小学生、初中生";
+      }
+
+      if (type === "美甲美容") {
+        document.getElementById("city").value = "本地附近";
+        document.getElementById("service").value = "美甲、美睫、皮肤护理";
+        document.getElementById("price").value = "新客体验价，老客户充值优惠";
+        document.getElementById("activity").value = "新客到店享体验价，闺蜜同行更优惠";
+        document.getElementById("customer").value = "年轻女性、上班族、附近居民";
+      }
+    }
+  </script>
+</body>
+</html>
